@@ -1,0 +1,87 @@
+@model StudentManagement.Models.Student
+
+<h1>Add Student</h1>
+
+<form asp-action="Create" method="post">
+
+    <!-- Student Name -->
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+
+        <input asp-for="Name" class="form-control" />
+
+        <span asp-validation-for="Name"
+              class="text-danger"></span>
+    </div>
+
+
+    <!-- Age -->
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+
+        <input asp-for="Age"
+               type="number"
+               class="form-control" />
+
+        <span asp-validation-for="Age"
+              class="text-danger"></span>
+    </div>
+
+
+    <!-- Email -->
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+
+        <input asp-for="Email"
+               type="email"
+               class="form-control" />
+
+        <span asp-validation-for="Email"
+              class="text-danger"></span>
+    </div>
+
+
+    <!-- Major -->
+    <div class="mb-3">
+        <label asp-for="Major" class="form-label"></label>
+
+        <input asp-for="Major"
+               class="form-control" />
+
+        <span asp-validation-for="Major"
+              class="text-danger"></span>
+    </div>
+
+
+    <!-- Teacher -->
+    <div class="mb-3">
+        <label asp-for="TeacherId" class="form-label">
+            Teacher
+        </label>
+
+        <select asp-for="TeacherId"
+                asp-items="ViewBag.Teachers"
+                class="form-select">
+            <option value="0">-- Select Teacher --</option>
+        </select>
+
+        <span asp-validation-for="TeacherId"
+              class="text-danger"></span>
+    </div>
+
+    <div asp-validation-summary="All"
+        class="text-danger"></div>
+
+
+    <!-- Buttons -->
+    <button type="submit"
+            class="btn btn-success">
+        Save
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>

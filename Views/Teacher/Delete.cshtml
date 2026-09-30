@@ -1,0 +1,41 @@
+@model StudentManagement.Models.Teacher
+
+<h1>Delete Teacher</h1>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this teacher?
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <p>
+            <strong>Name:</strong> @Model.Name
+        </p>
+
+        <p>
+            <strong>Email:</strong> @Model.Email
+        </p>
+
+        <p>
+            <strong>Subject:</strong> @Model.Subject
+        </p>
+
+        <form asp-action="Delete" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+                Yes, Delete
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>

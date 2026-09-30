@@ -1,0 +1,48 @@
+@model StudentManagement.Models.Student
+
+<h1>Delete Student</h1>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this student?
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">
+            @Model.Name
+        </h5>
+
+        <p class="card-text">
+            <strong>ID:</strong> @Model.Id
+        </p>
+
+        <p class="card-text">
+            <strong>Age:</strong> @Model.Age
+        </p>
+
+        <p class="card-text">
+            <strong>Email:</strong> @Model.Email
+        </p>
+
+        <p class="card-text">
+            <strong>Major:</strong> @Model.Major
+        </p>
+
+        <form asp-action="Delete" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit" class="btn btn-danger">
+                Yes, Delete
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</div>
