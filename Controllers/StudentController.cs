@@ -19,6 +19,7 @@ namespace StudentManagement.Controllers
         {
             var students = _context.Students
                 .Include(s => s.Teacher)
+                .Include(s => s.Class)
                 .ToList();
 
             return View(students);
@@ -29,7 +30,7 @@ namespace StudentManagement.Controllers
         public IActionResult Create()
         {
             LoadTeachers();
-
+            LoadClasses();
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace StudentManagement.Controllers
                 }
 
                 LoadTeachers(student.TeacherId);
-
+                LoadClasses(student.ClassId);
                 return View(student);
             }
 
@@ -73,7 +74,7 @@ namespace StudentManagement.Controllers
 
             // Load teachers and select the student's current teacher
             LoadTeachers(student.TeacherId);
-
+            LoadClasses(student.ClassId);
             return View(student);
         }
 
@@ -91,7 +92,7 @@ namespace StudentManagement.Controllers
 
             // Reload teachers when validation fails
             LoadTeachers(student.TeacherId);
-
+            LoadClasses(student.ClassId);
             return View(student);
         }
 
@@ -103,6 +104,17 @@ namespace StudentManagement.Controllers
                 "Id",
                 "Name",
                 selectedTeacherId
+            );
+        }
+
+        // Load classes
+        private void LoadClasses(int? selectedClassId = null)
+        {
+            ViewBag.Classes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(
+                _context.Classes.OrderBy(c => c.Name).ToList(),
+                "Id",
+                "Name",
+                selectedClassId
             );
         }
 

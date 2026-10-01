@@ -27,6 +27,18 @@
               class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="ClassId" class="form-label">Class</label>
+
+        <select asp-for="ClassId"
+                asp-items="ViewBag.Classes"
+                class="form-select">
+            <option value="">-- No Class --</option>
+        </select>
+
+        <span asp-validation-for="ClassId" class="text-danger"></span>
+    </div>
+
     <button type="submit" class="btn btn-success">
         Save Changes
     </button>

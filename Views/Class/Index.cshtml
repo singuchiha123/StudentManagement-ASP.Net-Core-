@@ -1,0 +1,42 @@
+@model IEnumerable<StudentManagement.Models.Class>
+
+<h1>Class Management</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Add Class</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Teachers</th>
+            <th>Students</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Id</td>
+                <td>@c.Name</td>
+                <td>
+                    @foreach (var t in c.Teachers)
+                    {
+                        <div>@t.Name</div>
+                    }
+                </td>
+                <td>
+                    @foreach (var s in c.Students)
+                    {
+                        <div>@s.Name</div>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

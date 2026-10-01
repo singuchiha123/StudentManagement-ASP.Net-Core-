@@ -9,7 +9,7 @@ namespace StudentManagement.Controllers
     {
         private readonly AppDbContext _context;
 
-        public ClassController(AppDbContext _context)
+        public ClassController(AppDbContext context)
         {
             _context = context;
         }
@@ -33,14 +33,14 @@ namespace StudentManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Class class)
+        public IActionResult Create(Class @class)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(class);
+                return View(@class);
             }
 
-            _context.Classes.Add(class);
+            _context.Classes.Add(@class);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -50,25 +50,25 @@ namespace StudentManagement.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var class = _context.Classes.Find(id);
+            var @class = _context.Classes.Find(id);
 
-            if(class == null)
+            if (@class == null)
             {
                 return NotFound();
             }
 
-            return View(class);
+            return View(@class);
         }
 
         [HttpPost]
-        public IActionResult Edit(Class class)
+        public IActionResult Edit(Class @class)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(class);
+                return View(@class);
             }
 
-            _context.Classes.Update(class);
+            _context.Classes.Update(@class);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -77,41 +77,41 @@ namespace StudentManagement.Controllers
         // Delete
         public IActionResult Delete(int id)
         {
-            var class = _context.Classes
+            var @class = _context.Classes
                 .Include(c => c.Students)
                 .Include(c => c.Teachers)
                 .FirstOrDefault(c => c.Id == id);
             
-            if(class == null)
+            if (@class == null)
             {
                 return NotFound();
             }
 
-            return View(class);
+            return View(@class);
         }
 
         [HttpPost]
         [ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var class = _context.Classes
+            var @class = _context.Classes
                 .Include(c => c.Students)
                 .Include(c => c.Teachers)
                 .FirstOrDefault(c => c.Id == id);
 
-            if(class == null)
+            if (@class == null)
             {
                 return NotFound();
             }
 
-            if(class.Students.Any() || class.Teachers.Any())
+            if (@class.Students.Any() || @class.Teachers.Any())
             {
                 ModelState.AddModelError("", "Cannot delete a class that still has students or teachers.");
 
-                return View(class);
+                return View(@class);
             }
 
-            _context.Classes.Remove(class);
+            _context.Classes.Remove(@class);
             _context.SaveChanges();
 
             return RedirectToAction("Index");

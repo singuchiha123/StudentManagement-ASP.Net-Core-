@@ -19,6 +19,7 @@ namespace StudentManagement.Controllers
         {
             var teachers = _context.Teachers
                 .Include(t => t.Students)
+                .Include(t => t.Class)
                 .ToList();
 
             return View(teachers);
@@ -27,6 +28,7 @@ namespace StudentManagement.Controllers
         // Create
         public IActionResult Create()
         {
+            LoadClasses();
             return View();
         }
 
@@ -39,6 +41,7 @@ namespace StudentManagement.Controllers
 
                 _context.SaveChanges();
 
+                LoadClasses(teacher.ClassId);
                 return RedirectToAction("Index");
             }
             
@@ -55,6 +58,7 @@ namespace StudentManagement.Controllers
                 return NotFound();
             }
 
+            LoadClasses(teacher.ClassId);
             return View(teacher);
         }
 
@@ -69,7 +73,18 @@ namespace StudentManagement.Controllers
                 return RedirectToAction("Index");
             }
 
+            LoadClasses(teacher.ClassId);
             return View(teacher);
+        }
+
+        private void LoadClasses(int? selectedClassId = null)
+        {
+            ViewBag.Classes = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(
+                _context.Classes.OrderBy(c => c.Name).ToList(),
+                "Id",
+                "Name",
+                selectedClassId
+            );
         }
 
         // Delete
