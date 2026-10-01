@@ -16,6 +16,8 @@ namespace StudentManagement.Data
 
         public DbSet<Class> Classes {get; set;}
 
+        public DbSet<Course> Courses {get; set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // One Teacher has many students
@@ -38,6 +40,11 @@ namespace StudentManagement.Data
                 .WithMany(c => c.Teachers)
                 .HasForeignKey(t => t.ClassId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Student ↔ Course
+            modelBuilder.Entity<Student>()
+                .HasMany(s => s.Courses)
+                .WithMany(c => c.Students);
         }
     }
 }

@@ -34,5 +34,7 @@ namespace StudentManagement.Models
         public int? ClassId {get; set;}
 
         public Class? Class {get; set;} = null!;
+
+        public ICollection<Course> Courses {get; set;} = new List<Course>();
     }
 }
