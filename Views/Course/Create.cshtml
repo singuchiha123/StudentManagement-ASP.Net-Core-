@@ -1,0 +1,44 @@
+@model StudentManagement.Models.Course
+
+<h1>Add Course</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label asp-for="Code" class="form-label">
+            Course Code
+        </label>
+
+        <input asp-for="Code"
+               class="form-control" />
+
+        <span asp-validation-for="Code"
+              class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">
+            Course Name
+        </label>
+
+        <input asp-for="Name"
+               class="form-control" />
+
+        <span asp-validation-for="Name"
+              class="text-danger"></span>
+    </div>
+
+    <div asp-validation-summary="All"
+         class="text-danger"></div>
+
+    <button type="submit"
+            class="btn btn-success">
+        Save
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
