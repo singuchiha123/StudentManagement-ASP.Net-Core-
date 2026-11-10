@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using StudentManagement.Data;
 using StudentManagement.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudentManagement.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly AppDbContext _context;
@@ -16,6 +18,7 @@ namespace StudentManagement.Controllers
         }
 
         // READ
+        [Authorize]
         public IActionResult Index()
         {
             var students = _context.Students
@@ -29,6 +32,7 @@ namespace StudentManagement.Controllers
 
 
         // CREATE - Show form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -41,6 +45,7 @@ namespace StudentManagement.Controllers
 
 
         // CREATE - Save
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Create(
             Student student,
@@ -71,6 +76,7 @@ namespace StudentManagement.Controllers
 
 
         // EDIT - Show form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -97,6 +103,7 @@ namespace StudentManagement.Controllers
 
 
         // EDIT - Save
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(
             Student student,
@@ -152,6 +159,7 @@ namespace StudentManagement.Controllers
 
 
         // DELETE - Show confirmation
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -171,6 +179,7 @@ namespace StudentManagement.Controllers
 
 
         // DELETE - Actually delete
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)

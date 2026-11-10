@@ -19,20 +19,117 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Student" asp-action="Index">Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Teacher" asp-action="Index">Teachers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Class" asp-action="Index">Classes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Course" asp-action="Index">Courses</a>
-                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Home"
+                                asp-action="Index">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Student"
+                                asp-action="Index">
+                                    Students
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Teacher"
+                                asp-action="Index">
+                                    Teachers
+                                </a>
+                            </li>
+
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-success"
+                                    asp-controller="Teacher"
+                                    asp-action="MyProfile">
+                                        My Profile
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Class"
+                                asp-action="Index">
+                                    Classes
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"
+                                asp-controller="Course"
+                                asp-action="Index">
+                                    Courses
+                                </a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary"
+                                    asp-controller="Account"
+                                    asp-action="CreateUser">
+                                        Create Teacher Account
+                                    </a>
+                                </li>
+                            }
+                        }
+
                     </ul>
+
+                    <ul class="navbar-nav">
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">
+                                    Hello, @User.Identity.Name
+                                    (@User.FindFirst(
+                                        System.Security.Claims.ClaimTypes.Role
+                                    )?.Value)
+                                </span>
+                            </li>
+
+                            <li class="nav-item">
+
+                                <form asp-controller="Account"
+                                    asp-action="Logout"
+                                    method="post">
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm mt-1">
+                                        Logout
+                                    </button>
+
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-primary"
+                                asp-controller="Account"
+                                asp-action="Login">
+                                    Login
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
                 </div>
             </div>
         </nav>

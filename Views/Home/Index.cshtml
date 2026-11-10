@@ -1,8 +1,96 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model StudentManagement.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center py-4 mb-4">
+    <h1 class="display-6 fw-bold mb-2">Student Management System</h1>
+    <p class="text-muted">Welcome! Choose a section below to view records or add new entries.</p>
+</div>
+
+<div class="row g-4 justify-content-center">
+    <!-- Students -->
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 shadow-sm border text-center p-3">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-primary">Students</h5>
+                <h2 class="display-5 fw-bold my-2 text-dark">@Model.Students.Count()</h2>
+                <p class="card-text text-muted small flex-grow-1">
+                    View student profiles, majors, and enrolled courses.
+                </p>
+                <div class="d-grid gap-2 mt-3">
+                    <a asp-controller="Student" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                        View Students
+                    </a>
+                    <a asp-controller="Student" asp-action="Create" class="btn btn-primary btn-sm">
+                        + Add Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teachers -->
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 shadow-sm border text-center p-3">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-success">Teachers</h5>
+                <h2 class="display-5 fw-bold my-2 text-dark">@Model.Teachers.Count()</h2>
+                <p class="card-text text-muted small flex-grow-1">
+                    Manage instructors, subjects, and assigned classes.
+                </p>
+                <div class="d-grid gap-2 mt-3">
+                    <a asp-controller="Teacher" asp-action="Index" class="btn btn-outline-success btn-sm">
+                        View Teachers
+                    </a>
+                    <a asp-controller="Teacher" asp-action="Create" class="btn btn-success btn-sm">
+                        + Add Teacher
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Classes -->
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 shadow-sm border text-center p-3">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-info">Classes</h5>
+                <h2 class="display-5 fw-bold my-2 text-dark">@Model.Classes.Count()</h2>
+                <p class="card-text text-muted small flex-grow-1">
+                    Organize academic classes and student batches.
+                </p>
+                <div class="d-grid gap-2 mt-3">
+                    <a asp-controller="Class" asp-action="Index" class="btn btn-outline-info btn-sm">
+                        View Classes
+                    </a>
+                    <a asp-controller="Class" asp-action="Create" class="btn btn-info text-white btn-sm">
+                        + Add Class
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses -->
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100 shadow-sm border text-center p-3">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-warning">Courses</h5>
+                <h2 class="display-5 fw-bold my-2 text-dark">@Model.Courses.Count()</h2>
+                <p class="card-text text-muted small flex-grow-1">
+                    Manage curriculum modules, codes, and enrollments.
+                </p>
+                <div class="d-grid gap-2 mt-3">
+                    <a asp-controller="Course" asp-action="Index" class="btn btn-outline-warning btn-sm">
+                        View Courses
+                    </a>
+                    <a asp-controller="Course" asp-action="Create" class="btn btn-warning btn-sm">
+                        + Add Course
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

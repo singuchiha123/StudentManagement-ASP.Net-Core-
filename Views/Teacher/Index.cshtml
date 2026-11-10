@@ -1,12 +1,29 @@
 @model IEnumerable<StudentManagement.Models.Teacher>
 
+@{
+    ViewData["Title"] = "Teacher Management";
+}
+
 <h1>Teacher Management</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-3">
-    Add Teacher
-</a>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create"
+       class="btn btn-primary mb-3">
+        Add Teacher
+    </a>
+}
 
-<table class="table table-bordered">
+@if (User.IsInRole("Teacher"))
+{
+    <a asp-action="MyProfile"
+       class="btn btn-success mb-3">
+        My Profile
+    </a>
+}
+
+<table class="table table-bordered table-striped">
+
     <thead>
         <tr>
             <th>ID</th>
@@ -15,7 +32,11 @@
             <th>Subject</th>
             <th>Class</th>
             <th>Students</th>
-            <th>Actions</th>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
 
@@ -32,26 +53,28 @@
                 <td>
                     @foreach (var student in teacher.Students)
                     {
-                        <div>
-                            @student.Name
-                        </div>
+                        <div>@student.Name</div>
                     }
                 </td>
 
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@teacher.Id"
-                       class="btn btn-warning">
-                        Edit
-                    </a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@teacher.Id"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@teacher.Id"
-                       class="btn btn-danger">
-                        Delete
-                    </a>
-                </td>
+                        <a asp-action="Delete"
+                           asp-route-id="@teacher.Id"
+                           class="btn btn-danger btn-sm">
+                            Delete
+                        </a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
+
 </table>

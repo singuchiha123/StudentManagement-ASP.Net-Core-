@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="container text-center mt-5">
+
+    <h1 class="text-danger">
+        403 - Access Denied
+    </h1>
+
+    <h4>
+        You don't have permission to access this page.
+    </h4>
+
+    <p>
+        Please contact your administrator.
+    </p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-primary">
+        Back to Dashboard
+    </a>
+
+</div>
